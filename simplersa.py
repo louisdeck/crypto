@@ -26,19 +26,28 @@ def keygen():
     else: sys.exit("2 primes required, exiting.")
 
 def encrypt(n):
-    m1 = int(input("What message would you like to encrypt? "))
-    c = pow(m1,e,n)
-    return m1,c
+    m1_ciph = []
+    m1 = str(input("What message would you like to encrypt? "))
+
+    for i in m1:
+        m1_ciph.append(pow(ord(i), e, n)) #"apes" => ['a','p','e','s'] => [1,2,3,4] => [21,22,23,24]
+
+    return m1, m1_ciph
 
 def decrypt(c,d,n):
-    m2 = pow(c,d,n)
+    m2_chars = []
+
+    for i in c:
+        m2_chars.append(chr(pow(i,d,n))) # [21,22,23,24] => [1,2,3,4] => ['a','p','e','s']
+
+    m2 = ''.join(m2_chars)
     return m2
 
 
 if __name__ == '__main__':
     n, d = keygen()
-    #print(f"{n=}")
-    #print(f"{d=}")
+    print(f"{n=}")
+    print(f"{d=}")
 
     m1, c = encrypt(n)
     print(f"{m1=}")
@@ -47,27 +56,6 @@ if __name__ == '__main__':
     m2 = decrypt(c,d,n)
     print(f"{m2=}")
     print(f"{m1==m2=}")
-
-
-
-'''
-p = 1999 #2 prime numbers p and q
-q = 2011
-e = 65537 #exponent
-
-n = p * q #modulo
-phi = (p-1) * (q-1) #euler's totient
-d = pow(e,-1,phi) #modular multiplicative inverse := e * d = 1 mod phi
-
-m = 89 #plaintext message
-c = pow(m, e, n) #encrypted message
-m2 = pow(c, d, n) #unencrypted message
-
-print(f"{m=}")
-print(f"{c=}")
-print(f"{m2=}")
-print(f"{m == m2=}")
-'''
 
 
 
