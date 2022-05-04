@@ -1,6 +1,6 @@
 # Simple RSA implementation, not secure at all!
 
-# 1 digit =~ 3 bits
+# 1 digit =~ 3.32 bits
 # on veut convertir une suite de bits en base 2 (0,1) en un nombre décimal (0-9) 
 # le nombre de bits nécessaires pour écrire un nombre entre 0 et 9 est égal à log2(10) =~ 3.32
 
@@ -25,6 +25,7 @@ def isPrime(n):
             return False
 
     return True
+
 
 def keygen():
     p = int(input("Choose a prime number p (1999): ") or 1999)
@@ -60,6 +61,7 @@ def keygen():
 
     return n,d
 
+
 def encrypt(n):
     m1_ciph = []
 
@@ -76,6 +78,7 @@ def encrypt(n):
     f2.close()
 
     return m1, m1_ciph
+
 
 def decrypt(c,d,n):
     m2_chars = []
@@ -95,17 +98,12 @@ def decrypt(c,d,n):
 if __name__ == '__main__':
     n, d = keygen()
     print("[keygen] key pair created and exported.")
-    #print(f"{n=}")
-    #print(f"{d=}")
 
     print("[encryption] encrypting plaintext file..")
     m1, c = encrypt(n)
     print("[encryption] encryption done.")
-    #print(f"{m1=}")
-    #print(f"{c=}")
 
     print("[decryption] decrypting cipher file..")
     m2 = decrypt(c,d,n)
     print("[decryption] decryption done.")
-    #print(f"{m2=}")
     print(f"{m1==m2=}")
